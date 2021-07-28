@@ -1,4 +1,4 @@
-package base.collections;
+package base.collections.List;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.Collection;
  * @author: chobit
  * @created: 2021/07/23 14:01
  */
-public class ArrayList<E> {
+public class ArrayList<E> implements List<E> {
 
     // 默认容量
     private static final int DEFAULT_CAPACITY = 10;
@@ -83,11 +83,11 @@ public class ArrayList<E> {
     /**
      * 在数组末尾添加元素
      *
-     * @param e 元素
+     * @param element 元素
      */
-    public boolean add(E e) {
+    public boolean add(E element) {
         grow();
-        elementData[size++] = e;
+        elementData[size++] = element;
         return true;
     }
 
@@ -97,7 +97,7 @@ public class ArrayList<E> {
      * @param index   指定位置
      * @param element 元素
      */
-    public boolean add(int index, int element) {
+    public boolean add(int index, E element) {
         rangeCheck(index);
         grow();
         System.arraycopy(elementData, index, elementData, index + 1, size - index - 1);
@@ -117,6 +117,24 @@ public class ArrayList<E> {
         elementData[size] = null;
         size--;
         return true;
+    }
+
+    @Override
+    public boolean remove(E element) {
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elementData[i] == null) {
+                    return remove(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (elementData[i].equals(element)) {
+                    return remove(i);
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -196,17 +214,18 @@ public class ArrayList<E> {
     public int getSize() {
         return size;
     }
+
     public static void main(String[] args) {
-        ArrayList<Integer> arrayList = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            arrayList.add(i);
+            list.add(i);
         }
-        System.out.println("在第1个位置添加元素0：" + arrayList.add(0, 1));
-        System.out.println("删除第9个位置上的元素：" + arrayList.remove(10));
-        System.out.println("设置第1个元素为0：" + arrayList.set(0, 1));
-        System.out.println("第一个元素为：" + arrayList.get(0));
-        System.out.println("数组的长度为：" + arrayList.getSize());
-        System.out.println("元素1的首次出现位置为：" + arrayList.indexOf(1));
-        arrayList.print();
+        System.out.println("在第1个位置添加元素0：" + list.add(0, 1));
+        System.out.println("删除第9个位置上的元素：" + list.remove(10));
+        System.out.println("设置第1个元素为0：" + list.set(0, 1));
+        System.out.println("第一个元素为：" + list.get(0));
+        System.out.println("数组的长度为：" + list.getSize());
+        System.out.println("元素1的首次出现位置为：" + list.indexOf(1));
+        list.print();
     }
 }
