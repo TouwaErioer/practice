@@ -214,18 +214,4 @@ public class ArrayList<E> implements List<E> {
     public int getSize() {
         return size;
     }
-
-    public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-        System.out.println("在第1个位置添加元素0：" + list.add(0, 1));
-        System.out.println("删除第9个位置上的元素：" + list.remove(10));
-        System.out.println("设置第1个元素为0：" + list.set(0, 1));
-        System.out.println("第一个元素为：" + list.get(0));
-        System.out.println("数组的长度为：" + list.getSize());
-        System.out.println("元素1的首次出现位置为：" + list.indexOf(1));
-        list.print();
-    }
 }
